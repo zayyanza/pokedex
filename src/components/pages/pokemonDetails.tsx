@@ -4,6 +4,8 @@ import LoadingScreen from "./loadingScreen";
 import { pokemonTypeColors } from "@/utils/typeColors";
 import Stats from "../stats";
 
+type PokemonType = keyof typeof pokemonTypeColors;
+
 interface PokemonResponse {
     name: string;
     types: {
@@ -73,12 +75,12 @@ const PokemonDetails = () => {
         <>
             {loading ? <LoadingScreen/> :
             <div className="flex flex-col items-center">
-                <h2 className="text-5xl font-bold tracking-tight text-gray-900 m-4">{selectedPokemon?.name[0].toUpperCase() + selectedPokemon?.name.slice(1)}</h2>
+                <h2 className="text-5xl font-bold tracking-tight text-gray-900 m-4">{selectedPokemon!.name[0].toUpperCase() + selectedPokemon!.name.slice(1)}</h2>
                 <div className="flex gap-6 ">
                     {selectedPokemon?.types.map((type) => (
                         <div 
                         className="p-2 rounded-xl"
-                        style={{backgroundColor: pokemonTypeColors[type.type.name].background, color: pokemonTypeColors[type.type.name].color}}
+                        style={{backgroundColor: pokemonTypeColors[type.type.name as PokemonType].background, color: pokemonTypeColors[type.type.name as PokemonType].color}}
                         >
                             {type.type.name[0].toUpperCase() + type.type.name.slice(1)}
                         </div>
